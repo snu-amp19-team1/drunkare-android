@@ -9,6 +9,10 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.samsung.android.sdk.accessory.*;
+import com.samsung.android.sdk.accessoryfiletransfer.*;
+import com.samsung.android.sdk.accessoryfiletransfer.SAFileTransfer.*;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
