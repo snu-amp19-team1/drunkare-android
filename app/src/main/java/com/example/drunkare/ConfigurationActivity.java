@@ -2,6 +2,7 @@ package com.example.drunkare;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -24,6 +25,7 @@ public class ConfigurationActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 //                startService(new Intent(ConfigurationActivity.this, PhaseListenerService.class));
+                Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
                 startService(new Intent(ConfigurationActivity.this, WatchAppService.class));
             }
         });

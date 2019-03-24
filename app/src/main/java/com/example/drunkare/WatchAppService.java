@@ -3,6 +3,7 @@ package com.example.drunkare;
 import android.accessibilityservice.AccessibilityService;
 import android.accessibilityservice.AccessibilityServiceInfo;
 import android.content.ComponentName;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -41,9 +42,16 @@ public class WatchAppService extends AccessibilityService {
                 ActivityInfo activityInfo = tryGetActivity(componentName);
                 boolean isActivity = activityInfo != null;
                 if (isActivity)
-                    Log.i("CurrentActivity", componentName.flattenToShortString());
-                else
-                    Log.d(TAG, "CurrentActivity: none");
+                    Log.d("CurrentActivity", componentName.flattenToShortString());
+                    String[] WatchList = new String[]{"messaging", "settings"};
+                    for (String app_name : WatchList){
+                        if (componentName.flattenToShortString().contains(app_name)){
+                            Intent startMain = new Intent(Intent.ACTION_MAIN);
+                            startMain.addCategory(Intent.CATEGORY_HOME);
+                            startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(startMain);
+                        }
+                    }
             }
         }
     }
