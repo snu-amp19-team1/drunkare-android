@@ -14,6 +14,8 @@ import static android.content.ContentValues.TAG;
 
 public class WatchAppService extends AccessibilityService {
 
+    public static WatchAppService instance;
+
     @Override
     protected void onServiceConnected() {
         super.onServiceConnected();
@@ -28,6 +30,7 @@ public class WatchAppService extends AccessibilityService {
             config.flags = AccessibilityServiceInfo.FLAG_INCLUDE_NOT_IMPORTANT_VIEWS;
 
         setServiceInfo(config);
+        instance = this;
     }
 
     @Override

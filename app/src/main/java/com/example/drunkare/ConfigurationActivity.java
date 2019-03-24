@@ -1,5 +1,7 @@
 package com.example.drunkare;
 
+import android.accessibilityservice.AccessibilityService;
+import android.accessibilityservice.AccessibilityServiceInfo;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -16,18 +18,26 @@ public class ConfigurationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_configuration);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         Button btnStart = findViewById(R.id.btnStart);
+        Button btnKill = findViewById(R.id.btnKill);
+
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                startService(new Intent(ConfigurationActivity.this, PhaseListenerService.class));
                 Intent goToAccessibilitySettings = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
                 startActivity(goToAccessibilitySettings);
                 startService(new Intent(ConfigurationActivity.this, WatchAppService.class));
+            }
+        });
+
+        btnKill.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                WatchAppService.instance.setServiceInfo(new AccessibilityServiceInfo()) ;
             }
         });
     }
