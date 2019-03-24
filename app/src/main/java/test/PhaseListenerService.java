@@ -1,14 +1,13 @@
-package com.example.drunkare;
+package test;
 
+import android.app.ActivityManager;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
-import android.util.Log;
 import android.widget.Toast;
-
-import static android.content.ContentValues.TAG;
 
 public class PhaseListenerService extends Service {
 
@@ -22,14 +21,24 @@ public class PhaseListenerService extends Service {
     }
     @Override
     public void onCreate() {
+
         handler = new Handler();
         runnable = new Runnable() {
             public void run() {
-                Toast.makeText(context, "Service is still running", Toast.LENGTH_LONG).show();
-                handler.postDelayed(runnable, 10000);
+
+                handler.postDelayed(runnable, 3000);
+                ActivityManager mActivityManager =(ActivityManager)PhaseListenerService.this.getSystemService(Context.ACTIVITY_SERVICE);
+                String mPackageName;
+                if(Build.VERSION.SDK_INT > 20){
+                    mPackageName = mActivityManager.getRunningAppProcesses().get(0).processName;
+                }
+                else{
+                    mPackageName = mActivityManager.getRunningTasks(1).get(0).topActivity.getPackageName();
+                }
+                Toast.makeText(context, "current app:"+mPackageName, Toast.LENGTH_LONG).show();
             }
         };
-        handler.postDelayed(runnable, 15000);
+        handler.postDelayed(runnable, 3000);
     }
 
     @Override
