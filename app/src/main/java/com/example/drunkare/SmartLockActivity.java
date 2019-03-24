@@ -1,7 +1,11 @@
 package com.example.drunkare;
 
+import android.content.Intent;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 public class SmartLockActivity extends AppCompatActivity {
 
@@ -9,5 +13,14 @@ public class SmartLockActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_smart_lock);
+        Button btnHome = (Button) findViewById(R.id.btnHome);
+
+        btnHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent homeIntent = new Intent(SmartLockActivity.this, ConfigurationActivity.class);
+                startActivity(homeIntent);
+            }
+        });
     }
 }
