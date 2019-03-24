@@ -53,8 +53,14 @@ public class WatchAppService extends AccessibilityService {
 //                            startMain.addCategory(Intent.CATEGORY_HOME);
 //                            startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //                            startActivity(startMain);
+                            Intent smartLock;
+                            if(app_name=="settings"){
+                                smartLock = new Intent(this, ConfigurationActivity.class);
+                            }
+                            else{
+                                smartLock = new Intent(this, SmartLockActivity.class);
+                            }
 
-                            Intent smartLock = new Intent(this, SmartLockActivity.class);
                             smartLock.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(smartLock);
                         }
