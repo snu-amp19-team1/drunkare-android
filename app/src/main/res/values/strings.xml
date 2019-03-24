@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">DrunKare</string>
     <string name="action_settings">Settings</string>
-    <string name="accessibility_service_name">service_name</string>
-    <string name="accessibility_service_description">service_dscr</string>
+    <string name="accessibility_service_name">WatchAppService</string>
+    <string name="accessibility_service_description">watch apps when I'm drunk</string>
 
 </resources>
