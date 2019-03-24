@@ -25,7 +25,8 @@ public class ConfigurationActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 //                startService(new Intent(ConfigurationActivity.this, PhaseListenerService.class));
-                Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
+                Intent goToAccessibilitySettings = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
+                startActivity(goToAccessibilitySettings);
                 startService(new Intent(ConfigurationActivity.this, WatchAppService.class));
             }
         });
