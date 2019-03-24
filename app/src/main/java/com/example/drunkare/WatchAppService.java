@@ -46,10 +46,14 @@ public class WatchAppService extends AccessibilityService {
                     String[] WatchList = new String[]{"messaging", "settings"};
                     for (String app_name : WatchList){
                         if (componentName.flattenToShortString().contains(app_name)){
-                            Intent startMain = new Intent(Intent.ACTION_MAIN);
-                            startMain.addCategory(Intent.CATEGORY_HOME);
-                            startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(startMain);
+//                            Intent startMain = new Intent(Intent.ACTION_MAIN);
+//                            startMain.addCategory(Intent.CATEGORY_HOME);
+//                            startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                            startActivity(startMain);
+
+                            Intent smartLock = new Intent(this, SmartLockActivity.class);
+                            smartLock.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(smartLock);
                         }
                     }
             }
