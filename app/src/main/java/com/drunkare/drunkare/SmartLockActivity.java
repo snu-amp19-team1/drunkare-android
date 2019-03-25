@@ -1,7 +1,6 @@
-package com.example.drunkare;
+package com.drunkare.drunkare;
 
 import android.content.Intent;
-import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;

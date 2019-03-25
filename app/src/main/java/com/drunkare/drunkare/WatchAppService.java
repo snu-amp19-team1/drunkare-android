@@ -1,4 +1,4 @@
-package com.example.drunkare;
+package com.drunkare.drunkare;
 
 import android.accessibilityservice.AccessibilityService;
 import android.accessibilityservice.AccessibilityServiceInfo;
