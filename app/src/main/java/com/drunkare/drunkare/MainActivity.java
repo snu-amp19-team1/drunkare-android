@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent goToAccessibilitySettings = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
                 startActivity(goToAccessibilitySettings);
-                Toast.makeText(context, "AppWatch Triggered", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "Please turn on the WatchAppService", Toast.LENGTH_LONG).show();
 
                 Intent serviceIntent = new Intent(MainActivity.this, WatchAppService.class);
 
@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 WatchAppService.instance.setServiceInfo(new AccessibilityServiceInfo()) ;
-                Toast.makeText(context, "AppWatch Terminated", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "Forcing shutdown", Toast.LENGTH_LONG).show();
             }
         });
 
