@@ -17,8 +17,8 @@ public class SmartLockActivity extends AppCompatActivity {
         btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent homeIntent = new Intent(SmartLockActivity.this, ConfigurationActivity.class);
-                startActivity(homeIntent);
+                Intent mainIntent = new Intent(SmartLockActivity.this, MainActivity.class);
+                startActivity(mainIntent);
             }
         });
     }
