@@ -3,7 +3,6 @@ package com.drunkare.drunkare;
 import android.accessibilityservice.AccessibilityServiceInfo;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
@@ -15,8 +14,6 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 

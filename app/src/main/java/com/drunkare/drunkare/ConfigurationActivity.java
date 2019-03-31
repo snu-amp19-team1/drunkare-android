@@ -22,10 +22,10 @@ import static android.widget.AbsListView.CHOICE_MODE_MULTIPLE;
 public class ConfigurationActivity extends AppCompatActivity {
 
     Context context = this;
-    ArrayList<String> WatchList=new ArrayList<>();
+    ArrayList<String> AppList =new ArrayList<>();
     ArrayList<Drawable> IconList = new ArrayList<>();
-    ListView lv_watch_list;
-    ArrayAdapter<String> watch_list_adapter;
+    ListView lv_app_list;
+    ArrayAdapter<String> app_list_adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,23 +36,23 @@ public class ConfigurationActivity extends AppCompatActivity {
         getAppsIntent.addCategory(Intent.CATEGORY_LAUNCHER);
         PackageManager pm = context.getPackageManager();
         List<ResolveInfo> pkgAppsList = pm.queryIntentActivities( getAppsIntent, 0);
-        Log.d("apps in phone: ",""+pkgAppsList.size());
+//        Log.d("apps in phone: ",""+pkgAppsList.size());
         for (ResolveInfo app_resolve_info:pkgAppsList){
             IconList.add(app_resolve_info.loadIcon(pm));
-            WatchList.add((String) app_resolve_info.activityInfo.packageName);
+            AppList.add((String) app_resolve_info.activityInfo.packageName);
         }
 
-        lv_watch_list = (ListView)findViewById(R.id.watch_list);
-        watch_list_adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_activated_1, WatchList);
+        lv_app_list = (ListView)findViewById(R.id.watch_list);
+        app_list_adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_activated_1, AppList);
 
-        lv_watch_list.setAdapter(watch_list_adapter);
-        lv_watch_list.setChoiceMode(CHOICE_MODE_MULTIPLE);
+        lv_app_list.setAdapter(app_list_adapter);
+        lv_app_list.setChoiceMode(CHOICE_MODE_MULTIPLE);
 
         FloatingActionButton fab_check = (FloatingActionButton) findViewById(R.id.fab_check);
         fab_check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SparseBooleanArray checked = lv_watch_list.getCheckedItemPositions();
+                SparseBooleanArray checked = lv_app_list.getCheckedItemPositions();
                 ArrayList<String> selectedItems = new ArrayList<String>();
 
                 for (int i = 0; i < checked.size(); i++)
@@ -61,7 +61,7 @@ public class ConfigurationActivity extends AppCompatActivity {
                     int position = checked.keyAt(i);
 
                     // Add sport if it is checked i.e.) == TRUE!
-                    if (checked.valueAt(i)) selectedItems.add(watch_list_adapter.getItem(position));
+                    if (checked.valueAt(i)) selectedItems.add(app_list_adapter.getItem(position));
                 }
 
                 String[] watchedApps = new String[selectedItems.size()];
