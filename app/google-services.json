@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "178262321418",
+    "firebase_url": "https://drunkare-3660c.firebaseio.com",
+    "project_id": "drunkare-3660c",
+    "storage_bucket": "drunkare-3660c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:178262321418:android:93af75d4bc4701de",
+        "android_client_info": {
+          "package_name": "com.drunkare.drunkare"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "178262321418-5h5sl6gvc7ro3bmvai7mdt6h40eis2l8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxWAyX0WcgZ47U5sYqmDvrUXb5K17C9KE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
