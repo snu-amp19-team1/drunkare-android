@@ -3,20 +3,16 @@ package com.drunkare.drunkare;
 import android.accessibilityservice.AccessibilityServiceInfo;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -44,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
         Button btnStart = findViewById(R.id.btnStart);
         Button btnKill = findViewById(R.id.btnKill);
+        Button btnQuery = findViewById(R.id.btnQuery);
 
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,7 +55,15 @@ public class MainActivity extends AppCompatActivity {
                 Bundle b = new Bundle();
                 b.putStringArray("watchedApps", watchAppList);
                 serviceIntent.putExtras(b);
+                startService(serviceIntent);
 
+            }
+        });
+
+        btnQuery.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent serviceIntent = new Intent(MainActivity.this, PhaseDetectorService.class);
                 startService(serviceIntent);
             }
         });
