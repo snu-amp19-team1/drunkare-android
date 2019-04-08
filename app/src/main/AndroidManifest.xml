@@ -2,10 +2,17 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.drunkare.drunkare">
 
+    <!--Samsung Accesory Protocol-->
     <uses-permission android:name="com.samsung.android.providers.context.permission.WRITE_USE_APP_FEATURE_SURVEY" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="com.samsung.accessory.permission.ACCESSORY_FRAMEWORK" />
+
+    <!--Android - Server-->
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <!--To trigger app at 6-->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
     <application
         android:allowBackup="true"
@@ -13,7 +20,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
         <activity android:name=".ConfigurationActivity"></activity>
         <activity android:name=".SmartLockActivity" />
 
@@ -21,6 +29,7 @@
             android:name="com.google.android.actions"
             android:resource="@xml/accessibilityservice" />
 
+        <!--Accessibility Service to lock apps-->
         <service
             android:name=".WatchAppService"
             android:label="@string/accessibility_service_name"
@@ -34,13 +43,26 @@
                 android:resource="@xml/accessibilityservice" />
         </service>
 
+        <!--Background Service to query phase-->
+        <service
+            android:name=".PhaseDetectorService"
+            android:permission="android.permission.">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/accessibilityservice" />
+        </service>
+
+        <!--Main (Home) Activity-->
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
