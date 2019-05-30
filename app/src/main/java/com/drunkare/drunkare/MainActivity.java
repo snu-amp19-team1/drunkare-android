@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
     public Context context = this;
     String[] watchAppList={};
-    TextView tv0,tv1, tv2, tv3,tv4,tv5,tv6;
+    TextView tv0,tv1, tv2, tv3,tv4,tv5,tv6, tv_time;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         tv4 = findViewById(R.id.tv4);
         tv5 = findViewById(R.id.tv5);
         tv6 = findViewById(R.id.tv6);
-
+        tv_time = findViewById(R.id.tv_time);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -99,14 +99,15 @@ public class MainActivity extends AppCompatActivity {
                 json = new JSONObject(result);
                 String phase = json.getString("context");
                 JSONArray top3 = json.getJSONArray("top3");
-                tv0.setText("You are currently in "+phase+" context");
+                String time = json.getString("time");
+                tv0.setText("You are currently in "+phase.toUpperCase()+" context");
                 tv1.setText(String.valueOf(top3.getJSONArray(0).get(0)));
                 tv2.setText(String.valueOf(top3.getJSONArray(1).get(0)));
                 tv3.setText(String.valueOf(top3.getJSONArray(2).get(0)));
                 tv4.setText(String.valueOf(top3.getJSONArray(0).get(1)));
                 tv5.setText(String.valueOf(top3.getJSONArray(1).get(1)));
                 tv6.setText(String.valueOf(top3.getJSONArray(2).get(1)));
-
+                tv_time.setText("Updated at "+time);
             } catch (JSONException e) {
                 e.printStackTrace();
             }

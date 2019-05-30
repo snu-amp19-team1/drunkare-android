@@ -137,13 +137,13 @@
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:src="@drawable/ic_update_black_24dp"/>
+
             <TextView
-                android:layout_gravity="center_vertical"
+                android:id="@+id/tv_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="20dp"
-                android:text="Updated at 2019.5.29 4:43PM"
-                />
+                android:layout_gravity="center_vertical"
+                android:paddingLeft="20dp" />
         </LinearLayout>
     </LinearLayout>
 
