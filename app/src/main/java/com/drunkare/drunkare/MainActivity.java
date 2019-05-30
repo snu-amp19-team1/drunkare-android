@@ -38,11 +38,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-        Button btnStart = findViewById(R.id.btnStart);
-        Button btnKill = findViewById(R.id.btnKill);
-        Button btnQuery = findViewById(R.id.btnQuery);
+        Button btnSettings = findViewById(R.id.btnSettings);
+        //Button btnKill = findViewById(R.id.btnKill);
+        //Button btnQuery = findViewById(R.id.btnQuery);
 
-        btnStart.setOnClickListener(new View.OnClickListener() {
+        btnSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent goToAccessibilitySettings = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
+/*
         btnQuery.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(context, "Forcing shutdown", Toast.LENGTH_LONG).show();
             }
         });
-
+*/
 
 
 
