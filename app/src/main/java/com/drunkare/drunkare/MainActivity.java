@@ -9,7 +9,6 @@ import android.provider.Settings;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -49,18 +48,6 @@ public class MainActivity extends AppCompatActivity {
         LocalBroadcastManager.getInstance(context).registerReceiver(
                 mMessageReceiver, new IntentFilter("ContextUpdate"));
 
-        try{
-            Bundle b = getIntent().getExtras();
-            watchAppList = b.getStringArray("watchedApps");
-            for (String app:watchAppList){
-                Log.d("watched app: ", app);
-            }
-        }
-        catch (Exception e){
-            Log.d("onCreate: ", "none");
-        }
-
-
         Button btnSettings = findViewById(R.id.btnSettings);
         //Button btnKill = findViewById(R.id.btnKill);
 
@@ -96,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
             String result = intent.getStringExtra("result");
             JSONObject json = null;
             try {
+
                 json = new JSONObject(result);
                 String phase = json.getString("context");
                 JSONArray top3 = json.getJSONArray("top3");
