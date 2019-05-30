@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.IBinder;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -43,12 +44,15 @@ public class PhaseDetectorService extends Service implements AsyncResponse {
                 try{
                     phaseQueryTask=new PhaseQueryTask();
                     phaseQueryTask.delegate = ar;
-                    phaseQueryTask.execute("http://10.0.2.2:8000/context/infer");
+                    phaseQueryTask.execute("http://lynx.snu.ac.kr:8081/custom_user/app?user_id=0");
                 }
                 catch (Exception e){
                     Log.d(TAG, "error in handler ");
                 }
-                Toast.makeText(context, ""+response, Toast.LENGTH_LONG).show();
+
+
+
+
             }
         };
         handler.postDelayed(runnable, 3000);
@@ -68,6 +72,14 @@ public class PhaseDetectorService extends Service implements AsyncResponse {
     public void processFinish(String output) {
 //        TODO: output -> state -> trigger WatchApp
         response = output;
+        try {
+            Intent intent = new Intent("ContextUpdate");
+            intent.putExtra("result", response);
+            LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+        } catch (Exception e) {
+            Log.d(TAG, "error in run");
+        }
+
     }
 }
 
@@ -81,7 +93,7 @@ class PhaseQueryTask extends AsyncTask<String, Void, String> {
 
         try {
             Request request = new Request.Builder()
-                    .url("http://10.0.2.2:8000/context/infer")
+                    .url("http://lynx.snu.ac.kr:8081/custom_user/app?user_id=0")
                     .build();
             Response response = client.newCall(request).execute();
             return response.body().string();
@@ -95,8 +107,6 @@ class PhaseQueryTask extends AsyncTask<String, Void, String> {
     @Override
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
-        Log.d("onPostExecute: ", ""+result);
-        //        Toast.makeText(mContext, result, Toast.LENGTH_LONG).show();
         delegate.processFinish(result);
     }
 }

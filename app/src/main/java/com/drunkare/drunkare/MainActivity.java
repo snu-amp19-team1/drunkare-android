@@ -1,10 +1,12 @@
 package com.drunkare.drunkare;
 
-import android.accessibilityservice.AccessibilityServiceInfo;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -12,19 +14,40 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
 
 
     public Context context = this;
     String[] watchAppList={};
+    TextView tv0,tv1, tv2, tv3,tv4,tv5,tv6;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        tv0 = findViewById(R.id.tv0);
+        tv1 = findViewById(R.id.tv1);
+        tv2 = findViewById(R.id.tv2);
+        tv3 = findViewById(R.id.tv3);
+        tv4 = findViewById(R.id.tv4);
+        tv5 = findViewById(R.id.tv5);
+        tv6 = findViewById(R.id.tv6);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        Intent serviceIntent = new Intent(MainActivity.this, PhaseDetectorService.class);
+        startService(serviceIntent);
+
+
+        LocalBroadcastManager.getInstance(context).registerReceiver(
+                mMessageReceiver, new IntentFilter("ContextUpdate"));
 
         try{
             Bundle b = getIntent().getExtras();
@@ -40,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
         Button btnSettings = findViewById(R.id.btnSettings);
         //Button btnKill = findViewById(R.id.btnKill);
-        //Button btnQuery = findViewById(R.id.btnQuery);
+
 
         btnSettings.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,13 +83,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 /*
-        btnQuery.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                Intent serviceIntent = new Intent(MainActivity.this, PhaseDetectorService.class);
-                startService(serviceIntent);
-            }
-        });
+
 
         btnKill.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,7 +97,30 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+    private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // Get extra data included in the Intent
+            String result = intent.getStringExtra("result");
+            JSONObject json = null;
+            try {
+                json = new JSONObject(result);
+                String phase = json.getString("context");
+                JSONArray top3 = json.getJSONArray("top3");
+                tv0.setText("You are currently in "+phase+" context");
+                tv1.setText(String.valueOf(top3.getJSONArray(0).get(0)));
+                tv2.setText(String.valueOf(top3.getJSONArray(1).get(0)));
+                tv3.setText(String.valueOf(top3.getJSONArray(2).get(0)));
+                tv4.setText(String.valueOf(top3.getJSONArray(0).get(1)));
+                tv5.setText(String.valueOf(top3.getJSONArray(1).get(1)));
+                tv6.setText(String.valueOf(top3.getJSONArray(2).get(1)));
 
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
+    };
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
