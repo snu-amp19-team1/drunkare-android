@@ -1,4 +1,0 @@
-configurations.maybeCreate("default")
-artifacts.add("default", file('accessory-v2.6.1.jar'))
-dependencies {
-}
