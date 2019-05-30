@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="20dp"
-                android:text="You are in the\n Desk context"
+                android:text="Your Context"
                 android:textAlignment="center"
                 android:textColor="#fff"
                 android:textSize="50sp"
@@ -64,7 +64,6 @@
                         android:id="@+id/tv1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Desk"
                         android:textSize="20sp" />
 
                     <TextView
@@ -72,7 +71,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingTop="10dp"
-                        android:text="80%"
                         android:textColor="@color/colorPrimary"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -88,7 +86,6 @@
                         android:id="@+id/tv2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Cafe"
                         android:textSize="20sp" />
 
                     <TextView
@@ -96,7 +93,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingTop="10dp"
-                        android:text="15%"
                         android:textColor="@color/colorPrimary"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -112,7 +108,6 @@
                         android:id="@+id/tv3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="etc"
                         android:textSize="20sp" />
 
                     <TextView
@@ -120,7 +115,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingTop="10dp"
-                        android:text="5%"
                         android:textColor="@color/colorPrimary"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -152,13 +146,14 @@
                 />
         </LinearLayout>
     </LinearLayout>
+
     <Button
         android:id="@+id/btnSettings"
-        android:textColor="@color/colormuted"
-        android:background="@drawable/buttonstyleithgradient"
-        android:layout_marginTop="25dp"
-        android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Settings"/>
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/buttonstyleithgradient"
+        android:text="Configuration"
+        android:textColor="@color/colormuted" />
 </LinearLayout>

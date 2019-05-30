@@ -68,17 +68,9 @@ public class MainActivity extends AppCompatActivity {
         btnSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent goToAccessibilitySettings = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
-                startActivity(goToAccessibilitySettings);
-                Toast.makeText(context, "Please turn on the WatchAppService", Toast.LENGTH_LONG).show();
+                Intent configurationIntent = new Intent(context, ConfigurationActivity.class);
+                startActivity(configurationIntent);
 
-                Intent serviceIntent = new Intent(MainActivity.this, WatchAppService.class);
-
-                // Create a bundle object
-                Bundle b = new Bundle();
-                b.putStringArray("watchedApps", watchAppList);
-                serviceIntent.putExtras(b);
-                startService(serviceIntent);
 
             }
         });
@@ -137,9 +129,18 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_configuration) {
+            Intent goToAccessibilitySettings = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
+            startActivity(goToAccessibilitySettings);
+            Toast.makeText(context, "Please turn on the WatchAppService", Toast.LENGTH_LONG).show();
 
-            Intent configurationIntent = new Intent(this, ConfigurationActivity.class);
-            startActivity(configurationIntent);
+            Intent serviceIntent = new Intent(MainActivity.this, WatchAppService.class);
+
+            // Create a bundle object
+            Bundle b = new Bundle();
+            b.putStringArray("watchedApps", watchAppList);
+            serviceIntent.putExtras(b);
+            startService(serviceIntent);
+
 
             return true;
         }
