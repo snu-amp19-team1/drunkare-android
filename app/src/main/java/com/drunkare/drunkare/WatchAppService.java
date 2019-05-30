@@ -70,7 +70,7 @@ public class WatchAppService extends AccessibilityService {
                         mMessageReceiver, new IntentFilter("ContextUpdate"));
                     for (String app_name : WatchList){
 
-                        if (componentName.flattenToShortString().contains(app_name)){
+                        if (is_drunk==1 && componentName.flattenToShortString().contains(app_name)){
 
                             Intent smartLock = new Intent(this, SmartLockActivity.class);
                             smartLock.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
