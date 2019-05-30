@@ -5,10 +5,9 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -36,7 +35,6 @@ public class ConfigurationActivity extends AppCompatActivity {
         getAppsIntent.addCategory(Intent.CATEGORY_LAUNCHER);
         PackageManager pm = context.getPackageManager();
         List<ResolveInfo> pkgAppsList = pm.queryIntentActivities( getAppsIntent, 0);
-        Log.d("apps in phone: ",""+pkgAppsList.size());
         for (ResolveInfo app_resolve_info:pkgAppsList){
             IconList.add(app_resolve_info.loadIcon(pm));
             WatchList.add((String) app_resolve_info.activityInfo.packageName);
@@ -72,12 +70,15 @@ public class ConfigurationActivity extends AppCompatActivity {
                 }
 
                 Intent mainIntent = new Intent(getApplicationContext(),MainActivity.class);
+                Intent serviceIntent = new Intent(getApplicationContext(), WatchAppService.class);
 
                 // Create a bundle object
                 Bundle b = new Bundle();
                 b.putStringArray("watchedApps", watchedApps);
-                mainIntent.putExtras(b);
-                startActivity(mainIntent);
+                serviceIntent.putExtras(b);
+                startService(serviceIntent);
+
+                finish();
             }
         });
     }

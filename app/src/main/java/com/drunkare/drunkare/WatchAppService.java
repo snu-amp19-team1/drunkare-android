@@ -11,29 +11,25 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
-import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import static android.content.ContentValues.TAG;
-
 public class WatchAppService extends AccessibilityService {
 
     public static WatchAppService instance;
     Context context = this;
-    int is_drunk = 0;
+    int is_drunk;
     String[] WatchList = {};
 
     @Override
     public int onStartCommand (Intent intent, int flags, int startId) {
+        LocalBroadcastManager.getInstance(context).registerReceiver(
+                mMessageReceiver, new IntentFilter("ContextUpdate"));
 
         Bundle b = intent.getExtras();
         WatchList = b.getStringArray("watchedApps");
-        for (String app:WatchList){
-            Log.d("onCreate: ", app);
-        }
         return START_STICKY;
     }
 
@@ -41,13 +37,13 @@ public class WatchAppService extends AccessibilityService {
     @Override
     protected void onServiceConnected() {
         super.onServiceConnected();
-        Log.d(TAG, "onServiceConnected: connected");
         //Configure these here for compatibility with API 13 and below.
         AccessibilityServiceInfo config = new AccessibilityServiceInfo();
         config.eventTypes = AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED;
         config.feedbackType = AccessibilityServiceInfo.FEEDBACK_GENERIC;
         setServiceInfo(config);
         instance = this;
+
     }
 
     @Override
@@ -62,21 +58,18 @@ public class WatchAppService extends AccessibilityService {
 
 
                 ActivityInfo activityInfo = tryGetActivity(componentName);
-//                boolean isActivity = activityInfo != null;
-//                if (isActivity)
-//                    Log.d("CurrentActivity", event.getPackageName().toString());
+                boolean isActivity = activityInfo != null;
 
-                LocalBroadcastManager.getInstance(context).registerReceiver(
-                        mMessageReceiver, new IntentFilter("ContextUpdate"));
+                if(is_drunk==1){
                     for (String app_name : WatchList){
-
-                        if (is_drunk==1 && componentName.flattenToShortString().contains(app_name)){
-
+                        if ( componentName.flattenToShortString().contains(app_name)){
                             Intent smartLock = new Intent(this, SmartLockActivity.class);
                             smartLock.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(smartLock);
                         }
                     }
+                }
+
             }
         }
     }
@@ -106,7 +99,6 @@ public class WatchAppService extends AccessibilityService {
                 else{
                     is_drunk=0;
                 }
-
             } catch (JSONException e) {
                 e.printStackTrace();
             }

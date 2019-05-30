@@ -8,7 +8,6 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
-import android.widget.Toast;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -65,12 +64,12 @@ public class PhaseDetectorService extends Service implements AsyncResponse {
 
     @Override
     public void onStart(Intent intent, int startid) {
-        Toast.makeText(this, "Service started by user.", Toast.LENGTH_LONG).show();
+
     }
 
     @Override
     public void processFinish(String output) {
-//        TODO: output -> state -> trigger WatchApp
+
         response = output;
         try {
             Intent intent = new Intent("ContextUpdate");
