@@ -2,16 +2,20 @@ package com.drunkare.drunkare;
 
 import android.accessibilityservice.AccessibilityService;
 import android.accessibilityservice.AccessibilityServiceInfo;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
-import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import static android.content.ContentValues.TAG;
 
@@ -19,6 +23,7 @@ public class WatchAppService extends AccessibilityService {
 
     public static WatchAppService instance;
     Context context = this;
+    int is_drunk = 0;
     String[] WatchList = {};
 
     @Override
@@ -41,11 +46,6 @@ public class WatchAppService extends AccessibilityService {
         AccessibilityServiceInfo config = new AccessibilityServiceInfo();
         config.eventTypes = AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED;
         config.feedbackType = AccessibilityServiceInfo.FEEDBACK_GENERIC;
-
-        if (Build.VERSION.SDK_INT >= 16)
-            //Just in case this helps
-            config.flags = AccessibilityServiceInfo.FLAG_INCLUDE_NOT_IMPORTANT_VIEWS;
-
         setServiceInfo(config);
         instance = this;
     }
@@ -62,10 +62,12 @@ public class WatchAppService extends AccessibilityService {
 
 
                 ActivityInfo activityInfo = tryGetActivity(componentName);
-                boolean isActivity = activityInfo != null;
-                if (isActivity)
-                    Log.d("CurrentActivity", event.getPackageName().toString());
+//                boolean isActivity = activityInfo != null;
+//                if (isActivity)
+//                    Log.d("CurrentActivity", event.getPackageName().toString());
 
+                LocalBroadcastManager.getInstance(context).registerReceiver(
+                        mMessageReceiver, new IntentFilter("ContextUpdate"));
                     for (String app_name : WatchList){
 
                         if (componentName.flattenToShortString().contains(app_name)){
@@ -88,4 +90,27 @@ public class WatchAppService extends AccessibilityService {
 
     @Override
     public void onInterrupt() {}
+
+    private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // Get extra data included in the Intent
+            String result = intent.getStringExtra("result");
+            JSONObject json = null;
+            try {
+                json = new JSONObject(result);
+                String phase = json.getString("context");
+                if (phase.equals("drinking")){
+                    is_drunk=1;
+                }
+                else{
+                    is_drunk=0;
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
+    };
 }
