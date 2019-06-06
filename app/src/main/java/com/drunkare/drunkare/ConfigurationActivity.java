@@ -2,6 +2,7 @@ package com.drunkare.drunkare;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.drawable.Drawable;
@@ -21,7 +22,7 @@ import static android.widget.AbsListView.CHOICE_MODE_MULTIPLE;
 public class ConfigurationActivity extends AppCompatActivity {
 
     Context context = this;
-    ArrayList<String> WatchList=new ArrayList<>();
+    ArrayList<String> WatchList=new ArrayList<String>();
     ArrayList<Drawable> IconList = new ArrayList<>();
     ListView lv_watch_list;
     ArrayAdapter<String> watch_list_adapter;
@@ -35,9 +36,33 @@ public class ConfigurationActivity extends AppCompatActivity {
         getAppsIntent.addCategory(Intent.CATEGORY_LAUNCHER);
         PackageManager pm = context.getPackageManager();
         List<ResolveInfo> pkgAppsList = pm.queryIntentActivities( getAppsIntent, 0);
+
+        // Get application name
+        //ArrayList<String> app_name_list = new ArrayList<String>();
+        ArrayList<String> app_package_list = new ArrayList<String>();
+
+        for(ResolveInfo resolve_info : pkgAppsList) {
+            try {
+                String package_name = resolve_info.activityInfo.packageName;
+                String app_name = (String)pm.getApplicationLabel(
+                        pm.getApplicationInfo(package_name
+                                , PackageManager.GET_META_DATA));
+                boolean same = false;
+                for(int i = 0 ; i < WatchList.size() ; i++) {
+                    if(package_name.equals(app_package_list.get(i)))
+                        same = true;
+                }
+                if(!same) {
+                    WatchList.add(app_name);
+                    app_package_list.add(package_name);
+                }
+                //Log.i("Check", "package = <" + package_name + "> name = <" + app_name + ">");
+            } catch(Exception e) { }
+        }
+
         for (ResolveInfo app_resolve_info:pkgAppsList){
             IconList.add(app_resolve_info.loadIcon(pm));
-            WatchList.add((String) app_resolve_info.activityInfo.packageName);
+            //WatchList.add((String) app_resolve_info.activityInfo.packageName);
         }
 
         lv_watch_list = (ListView)findViewById(R.id.watch_list);
