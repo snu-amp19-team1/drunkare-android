@@ -25,11 +25,12 @@ public class MainActivity extends AppCompatActivity {
 
     public Context context = this;
     String[] watchAppList={};
-    TextView tv0,tv1, tv2, tv3,tv4,tv5,tv6, tv_time;
+    TextView tv0,tv1, tv2, tv3,tv4,tv5,tv6, tv_time, tv_loc;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        tv_loc = findViewById(R.id.tv_loc);
         tv0 = findViewById(R.id.tv0);
         tv1 = findViewById(R.id.tv1);
         tv2 = findViewById(R.id.tv2);
@@ -88,6 +89,8 @@ public class MainActivity extends AppCompatActivity {
                 String phase = json.getString("context");
                 JSONArray top3 = json.getJSONArray("top3");
                 String time = json.getString("time");
+                String loc = json.getString("loc");
+
                 tv0.setText("You are currently in "+phase.toUpperCase()+" context");
                 tv1.setText(String.valueOf(top3.getJSONArray(0).get(0)));
                 tv2.setText(String.valueOf(top3.getJSONArray(1).get(0)));
@@ -96,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
                 tv5.setText(String.valueOf(top3.getJSONArray(1).get(1)));
                 tv6.setText(String.valueOf(top3.getJSONArray(2).get(1)));
                 tv_time.setText("Updated at "+time);
+                tv_loc.setText(loc);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
