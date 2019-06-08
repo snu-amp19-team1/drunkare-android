@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
                 String phase = json.getString("context");
                 JSONArray top3 = json.getJSONArray("top3");
                 String time = json.getString("time");
-                tv0.setText("You are currently in "+phase.toUpperCase()+" context");
+                tv0.setText(phase.toUpperCase());
                 tv1.setText(String.valueOf(top3.getJSONArray(0).get(0)));
                 tv2.setText(String.valueOf(top3.getJSONArray(1).get(0)));
                 tv3.setText(String.valueOf(top3.getJSONArray(2).get(0)));
