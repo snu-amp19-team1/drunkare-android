@@ -38,12 +38,12 @@ public class PhaseDetectorService extends Service implements AsyncResponse {
         runnable = new Runnable() {
             public void run() {
 
-                handler.postDelayed(runnable, 3000);
+                handler.postDelayed(runnable, 10000);
 
                 try{
                     phaseQueryTask=new PhaseQueryTask();
                     phaseQueryTask.delegate = ar;
-                    phaseQueryTask.execute("http://lynx.snu.ac.kr:8081/custom_user/app?user_id=0");
+                    phaseQueryTask.execute("http://lynx.snu.ac.kr:8081/custom_user/app?user_id=1");
                 }
                 catch (Exception e){
                     Log.d(TAG, "error in handler ");
@@ -54,7 +54,7 @@ public class PhaseDetectorService extends Service implements AsyncResponse {
 
             }
         };
-        handler.postDelayed(runnable, 3000);
+        handler.postDelayed(runnable, 10000);
     }
 
     @Override
@@ -92,7 +92,7 @@ class PhaseQueryTask extends AsyncTask<String, Void, String> {
 
         try {
             Request request = new Request.Builder()
-                    .url("http://lynx.snu.ac.kr:8081/custom_user/app?user_id=0")
+                    .url("http://lynx.snu.ac.kr:8081/custom_user/app?user_id=1")
                     .build();
             Response response = client.newCall(request).execute();
             return response.body().string();
