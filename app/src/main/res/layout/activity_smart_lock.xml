@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SmartLockActivity">
+    tools:context=".SmartLockActivity"
+    android:background="@color/colorPrimary"
+    android:orientation="vertical"
+    android:paddingTop="200dp">
 
     <ImageView
         android:id="@+id/imageLock"
-        android:layout_width="131dp"
-        android:layout_height="123dp"
-        android:layout_marginStart="140dp"
-        android:layout_marginTop="224dp"
-        android:src="@drawable/locked"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/ic_lock_outline_black_24dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -20,10 +23,9 @@
         android:id="@+id/btnHome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="160dp"
-        android:layout_marginTop="48dp"
-        android:text="home"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageLock" />
-
-</android.support.constraint.ConstraintLayout>
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/buttonstylewhite"
+        android:textColor="@color/colorPrimary"
+        android:text="home"/>
+</LinearLayout>
