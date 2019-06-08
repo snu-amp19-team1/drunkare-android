@@ -11,6 +11,7 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
 
 import org.json.JSONException;
@@ -50,18 +51,18 @@ public class WatchAppService extends AccessibilityService {
     public void onAccessibilityEvent(AccessibilityEvent event) {
         if (event.getEventType() == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
             if (event.getPackageName() != null && event.getClassName() != null) {
-
                 ComponentName componentName = new ComponentName(
                         event.getPackageName().toString(),
                         event.getClassName().toString()
                 );
 
-
                 ActivityInfo activityInfo = tryGetActivity(componentName);
                 boolean isActivity = activityInfo != null;
 
                 if(is_drunk==1){
+                    //Log.d("MyTagGoesHere", componentName.flattenToShortString());
                     for (String app_name : WatchList){
+                        //Log.d("MyTagGoesHere", app_name);
                         if ( componentName.flattenToShortString().contains(app_name)){
                             Intent smartLock = new Intent(this, SmartLockActivity.class);
                             smartLock.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

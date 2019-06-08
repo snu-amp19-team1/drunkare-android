@@ -84,7 +84,7 @@ public class ConfigurationActivity extends AppCompatActivity {
                     int position = checked.keyAt(i);
 
                     // Add sport if it is checked i.e.) == TRUE!
-                    if (checked.valueAt(i)) selectedItems.add(watch_list_adapter.getItem(position));
+                    if (checked.valueAt(i)) selectedItems.add(app_package_list.get(position));
                 }
 
                 String[] watchedApps = new String[selectedItems.size()];
