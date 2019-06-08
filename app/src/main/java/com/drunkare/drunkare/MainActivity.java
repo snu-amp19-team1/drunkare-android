@@ -9,7 +9,6 @@ import android.provider.Settings;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     public Context context = this;
     String[] watchAppList={};
     TextView tv0,tv1, tv2, tv3,tv4,tv5,tv6, tv_time, tv_loc;
+    Button btnSettings;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         LocalBroadcastManager.getInstance(context).registerReceiver(
                 mMessageReceiver, new IntentFilter("ContextUpdate"));
 
-        Button btnSettings = findViewById(R.id.btnSettings);
+        btnSettings = findViewById(R.id.btnSettings);
         //Button btnKill = findViewById(R.id.btnKill);
 
 
@@ -88,6 +88,12 @@ public class MainActivity extends AppCompatActivity {
 
                 json = new JSONObject(result);
                 String phase = json.getString("context");
+                if (phase=="drinking"){
+                    btnSettings.setEnabled(false);
+                }
+                else{
+                    btnSettings.setEnabled(true);
+                }
                 JSONArray top3 = json.getJSONArray("top3");
                 String time = json.getString("time");
                 tv0.setText(phase.toUpperCase());
