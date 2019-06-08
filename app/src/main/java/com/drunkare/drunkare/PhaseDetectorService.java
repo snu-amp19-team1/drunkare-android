@@ -38,7 +38,7 @@ public class PhaseDetectorService extends Service implements AsyncResponse {
         runnable = new Runnable() {
             public void run() {
 
-                handler.postDelayed(runnable, 3000);
+                handler.postDelayed(runnable, 10000);
 
                 try{
                     phaseQueryTask=new PhaseQueryTask();
@@ -54,7 +54,7 @@ public class PhaseDetectorService extends Service implements AsyncResponse {
 
             }
         };
-        handler.postDelayed(runnable, 3000);
+        handler.postDelayed(runnable, 10000);
     }
 
     @Override
